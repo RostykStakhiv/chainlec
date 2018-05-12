@@ -4,16 +4,23 @@
 
 namespace org.acme.chainlec
 
-participant User identified by email {
-  o String email
+participant Voter identified by passportID {
+  o String passportID
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  o String value
+participant HeadOfElection extends Voter {
 }
 
-transaction ChangeAssetValue {
-  o String newValue
-  --> Asset relatedAsset
+participant Candidate extends Voter {
+  o Integer numberOfVotes default = 0
+}
+
+asset Poll identified by pollID {
+  o String pollID
+  --> Candidate[] candidates
+}
+
+transaction Vote {
+  --> Voter voter
+  --> Candidate candidate
 }
