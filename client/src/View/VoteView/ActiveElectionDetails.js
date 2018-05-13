@@ -25,8 +25,13 @@ class ActiveElectionDetails extends Component {
   }
 
   onVote() {
-    let selectedCandidate = this.props.candidates[this.state.checkedIndex];
-    alert(`You have voted for ${selectedCandidate.name}`);
+    let passport = prompt("Please enter your passport number", "МС070183");
+
+    if (passport) {
+      let selectedCandidate = this.props.candidates[this.state.checkedIndex]; 
+      let validatedPass = passport.replace(/\s/g,'');   
+      alert(`Citizien ${validatedPass} has voted for ${selectedCandidate.name}`);
+    }
   }
 
   getFooter() {
