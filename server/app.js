@@ -33,7 +33,7 @@ const mockData = [
       candidates: [
         {
             id: "ID_Poroh",
-            name: "Dido",
+            name: "Poroh",
         },
         {
           id: "ID_Oleh_Valeriiovych",

@@ -36,9 +36,11 @@ class VoteView extends Component {
     return (
       <ActiveElectionDetails
         key={e.id}
+        lecId={e.id}
         title={e.title}
         time={this.parseDate(e.startTime)}
         candidates={e.candidates} 
+        onVote={p => this.onVote(p)}
       />
     );
   }
@@ -61,6 +63,10 @@ class VoteView extends Component {
     });
 
     return details;
+  }
+
+  onVote(params) {
+    this.props.onVote(params);
   }
 
   render() {

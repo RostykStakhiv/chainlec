@@ -45,23 +45,38 @@ class CreateVoteView extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let isEmptyInput = false;
-    let keys = this.layout.map(x => x.name);
-    keys.forEach(k => {
-      if (!this.state[k]) isEmptyInput = true;
-    });
-
-    if (!isEmptyInput) {
+    if (!this.isEmptyInput()) {
       let passport = prompt("Please enter your passport number", "МС070183");
 
       if (passport) {
-        let validatedPass = passport.replace(/\s/g,'');   
-        alert(`Citizien ${validatedPass} has voted for`);
+        this.passport = passport.replace(/\s/g,'');
+        this.sendData();
       }
     }
     else {
       alert(EmptyInputErrorMsg);
     }
+  }
+
+  isEmptyInput() {
+    let isEmpty = false;
+    let keys = this.layout.map(x => x.name);
+    keys.forEach(k => {
+      if (!this.state[k]) isEmpty = true;
+    });
+
+    return isEmpty;
+  }
+
+  sendData() {
+    let params = {};
+    let keys = this.layout.map(x => x.name);
+    keys.forEach(k => {
+      params[k] = this.state[k];
+    }); 
+
+    params.userId = this.passport;
+    this.props.onCreateLec(params);
   }
 
   getRows() {
