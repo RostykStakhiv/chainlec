@@ -1,9 +1,13 @@
 `use strict`;
 const express = require('express');
 const app = express();
-var cors = require('cors');
 
+let cors = require('cors');
 app.use(cors());
+
+let bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const mockData = [
     { 
@@ -88,6 +92,16 @@ app.get('/chainlec/v1/elections', (req, res, next) => {
   console.log("GET elections");
   res.status(200);
   res.send(mockData);
+});
+
+app.post('/chainlec/v1/elections', (req, res, next) => {
+  console.log(`POST elections. Body = ${JSON.stringify(req.body)}`);
+  res.status(200);
+});
+
+app.post('/chainlec/v1/votes', (req, res, next) => {
+  console.log(`POST votes. Body =  ${JSON.stringify(req.body)}`);
+  res.status(200);
 });
 
 app.listen(3003, () => console.log('Example app listening on port 3003!'));

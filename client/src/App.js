@@ -4,21 +4,25 @@ import CreateVoteView from './View/CreateVoteView'
 import ElectionModel from './Model/ElectionModel'
 
 class App extends Component {
-  state = {
-    elections: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      elections: []
+    }
+
+    this.model = new ElectionModel();
   }
 
   handleCreateLec(params) {
-    alert(JSON.stringify(params));
+    this.model.createElection(params);
   }
 
   handleVote(params) {
-    alert(JSON.stringify(params));
+    this.model.vote(params);
   }
 
   componentDidMount() {
-    let model = new ElectionModel();
-    model.getElections((data) => {
+    this.model.getElections((data) => {
       this.setState({
         elections : data
       });
