@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Row from './CreateVoteView/Row'
+
 const EmptyInputErrorMsg = 'You should fill in all the fields';
+const InvalidInputErrorMsg = 
+`List of candidates should be in formar \"cand1,cand2,cand3\"
+ Dates should be in format dd/mm/yyyy`;
+
+const StartDateKey = 'startDate';
+const EndDateKey = 'endDate';
+const TitleKey = 'title';
+const CandidatesKey = 'candidates';
 
 class CreateVoteView extends Component {
   constructor(props) {
@@ -8,19 +17,19 @@ class CreateVoteView extends Component {
 
     this.layout = [
       {
-        name: 'startDate',
+        name: StartDateKey,
         label: 'Start Date'
       },
       {
-        name: 'endDate',
+        name: EndDateKey,
         label: 'End Date'
       },
       {
-        name: 'title',
+        name: TitleKey,
         label: 'Title'
       },
       {
-        name: 'candidates',
+        name: CandidatesKey,
         label: 'Candidates'
       },
     ];
@@ -68,7 +77,28 @@ class CreateVoteView extends Component {
     return isEmpty;
   }
 
+  validateInput() {
+    let a =this.validateDate(this.state[StartDateKey]);
+    let b = this.validateCandidates(this.state[CandidatesKey]);  
+    return this.validateDate(this.state[StartDateKey]) &&
+           this.validateDate(this.state[EndDateKey]) &&
+           this.validateCandidates(this.state[CandidatesKey]);
+  }
+
+  validateDate(date) {
+    return date.match(`^\\d{1,2}[\/\\\.]\\d{1,2}[\/\\\.]\\d{2,4}$`);
+  }
+
+  validateCandidates(date) {
+    return date.match('^(\\w{2}\\d{6},)*\\w{2}\\d{6}$');
+  }
+
   sendData() {
+    if (!this.validateInput()) {
+      alert(InvalidInputErrorMsg);
+      return;
+    }
+
     let params = {};
     let keys = this.layout.map(x => x.name);
     keys.forEach(k => {
