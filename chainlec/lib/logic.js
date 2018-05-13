@@ -1,35 +1,32 @@
-'use strict';
 /**
   * give a vote to candidate
-  * @param {org.acme.chainlec} Vote - the Vote to be processed
+  * @param {org.acme.empty.Vote} Vote - the Vote to be processed
   * @transaction
   */
- async function Vote(vote) {
-    // get voter
-    var voter = vote.voter;
-    // get candidate
+ async function Vote(voteTransaction) {
+    var vote = voteTransaction.electionVote;
+
     var candidate = vote.candidate;
-    // if voter already voted
     var poll = vote.poll;
+    var voter = vote.voter;
+
     var voters = poll.voters;
+    
     if(voters.indexOf(voter) > -1) {
       throw new Error('Already voted');
     }
-    // if voter has not voted give a vote to candidate
-    candidate.numberOfVotes += 1;
+
+    // if voter has not voted give a vote to candidate and add voter to array of participants, who have already voted
+    candidate.votes.push(vote);
     poll.voters.push(voter);
-    // get asset 'org.acme.votenetwork.Candidate'
-    return getAssetRegistry('org.acme.votenetwork.Candidate').then(function(CandidateRegistry) {
-      // Get participant 'org.acme.votenetwork.Voter'
-      getParticipantRegistry('org.acme.votenetwork.Voter').then(function(participantRegistry) {
-        // Modify the properties of the voter .
-        voter.voted = true;
-        // Update the voter in the participant registry.
-        return participantRegistry.update(voter);
+
+    return getAssetRegistry('org.acme.empty.Poll').then(function(pollRegistry) {
+      getParticipantRegistry('org.acme.empty.Candidate').then(function(candidateRegistry) {
+        return candidateRegistry.update(candidate);
       }).catch(function(error) {
         // Add optional error handling here.
       });
       // update the candidate registry
-      return CandidateRegistry.update(candidate);
+      return pollRegistry.update(poll);
     });
   }

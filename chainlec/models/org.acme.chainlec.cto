@@ -2,7 +2,7 @@
  * Write your model definitions here
  */
 
-namespace org.acme.chainlec
+namespace org.acme.empty
 
 participant Voter identified by passportID {
   o String passportID
@@ -12,15 +12,34 @@ participant HeadOfElection extends Voter {
 }
 
 participant Candidate extends Voter {
-  o Integer numberOfVotes default = 0
+  --> ElectionVote[] votes
 }
-
+  
 asset Poll identified by pollID {
   o String pollID
+  o DateTime creationDate
+  o DateTime startDate
+  o DateTime finishDate
   --> Candidate[] candidates
+  --> Voter[] voters
+}
+  
+asset ElectionVote identified by voteID {
+  o String voteID
+  o DateTime creationDate
+  --> Poll poll
+  --> Candidate candidate
+  --> Voter voter
+}
+
+transaction CreatePoll {
+  o DateTime creationDate
+  o DateTime startDate
+  o DateTime finishDate
+  --> Candidate[] candidates
+  --> Voter[] voters
 }
 
 transaction Vote {
-  --> Voter voter
-  --> Candidate candidate
+  --> ElectionVote electionVote
 }
