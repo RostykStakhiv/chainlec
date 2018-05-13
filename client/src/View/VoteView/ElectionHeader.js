@@ -8,7 +8,10 @@ class ElectionHeader extends Component {
         <th>{this.props.title}</th>
         <th>{this.props.time}</th>
         <th>
-          <Button />
+          <Button 
+            label="Collapse/Expand"
+            onClick={() => alert('You have clicked')}
+          />
         </th>
       </tr>
     );

@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 
 class Button extends Component {
-  onClick() {
-    alert("Clicked");
-  }
-
   render() {
     return (   
       <button 
           type="button"
-          onClick={this.onClick}>
-        clickMe
+          onClick={this.props.onClick}>
+        {this.props.label}
       </button>
     );
   }

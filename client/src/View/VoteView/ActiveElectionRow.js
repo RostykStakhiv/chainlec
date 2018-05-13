@@ -5,6 +5,13 @@ class ActiveElectionRow extends Component {
     return (
       <tr>
         <td>{this.props.candidate}</td>
+        <td>
+          <input 
+            type="radio"
+            checked={this.props.isChecked}
+            onChange={this.props.onCheck}
+          />
+        </td>
       </tr>
     );
   }

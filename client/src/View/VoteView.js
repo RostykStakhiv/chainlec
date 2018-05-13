@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ElectionDetails from './VoteView/ElectionDetails'
+import ActiveElectionDetails from './VoteView/ActiveElectionDetails'
 
 const mockData = [
   { 
@@ -83,15 +83,17 @@ class VoteView extends Component {
   getElectionDetails() {
     let details = [];
     mockData.forEach(e => {
-      details.push(
-        <ElectionDetails
-          key={e.id}
-          title={e.title}
-          time={e.startTime}
-          state={e.state}
-          candidates={e.candidates}> 
-        </ElectionDetails>
-      );
+      if (e.state === 'active') {
+        details.push(
+          <ActiveElectionDetails
+            key={e.id}
+            title={e.title}
+            time={e.startTime}
+            state={e.state}
+            candidates={e.candidates} 
+          />
+        );
+      }
     });
 
     return details;
