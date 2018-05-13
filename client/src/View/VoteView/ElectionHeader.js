@@ -6,6 +6,7 @@ class ElectionHeader extends Component {
     return (
       <tr>
         <th>{this.props.title}</th>
+        <th>{this.props.time}</th>
         <th>
           <Button />
         </th>

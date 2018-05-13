@@ -56,7 +56,7 @@ const mockData = [
     ]
   },
   { 
-    id : "ID_Election_2",
+    id : "ID_Election_3",
     title: "Parlament Election",
     startTime: 1526207409,
     endTime: 1526207409,
@@ -85,9 +85,11 @@ class VoteView extends Component {
     mockData.forEach(e => {
       details.push(
         <ElectionDetails
+          key={e.id}
           title={e.title}
           time={e.startTime}
-          state={e.state}> 
+          state={e.state}
+          candidates={e.candidates}> 
         </ElectionDetails>
       );
     });
