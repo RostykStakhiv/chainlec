@@ -13,7 +13,10 @@ class FutureElectionDetails extends Component {
         </thead>
         <tbody>
           <tr>
-            <td>Election would take place soon</td>
+            <td>
+              Election would take place soon
+            </td>
+            <td/>
           </tr>
         </tbody>
       </table>
