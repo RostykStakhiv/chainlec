@@ -10,7 +10,7 @@ class ElectionHeader extends Component {
         <th>
           <Button 
             label="Collapse/Expand"
-            onClick={() => alert('You have clicked')}
+            onClick={this.props.onClick}
           />
         </th>
       </tr>

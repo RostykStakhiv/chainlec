@@ -8,7 +8,14 @@ class ActiveElectionDetails extends Component {
     super(props);
     this.state = {
       checkedIndex: 0,
+      isCollapsed: true,
     }
+  }
+
+  onCollapseToggle() {
+    this.setState(prevState => {
+      return { isCollapsed: !prevState.isCollapsed };
+    });
   }
 
   onCheckChanged(i) {
@@ -22,7 +29,28 @@ class ActiveElectionDetails extends Component {
     alert(`You have voted for ${selectedCandidate.name}`);
   }
 
+  getFooter() {
+    if (this.state.isCollapsed) {
+      return null;
+    }
+
+    return (
+      <tr>
+        <td>
+          <Button 
+            label="Vote"
+            onClick={() => this.onVote()}
+          />
+        </td>
+      </tr>
+    );
+  }
+
   getRows() {
+    if (this.state.isCollapsed) {
+      return null;
+    }
+
     let rows = [];
     this.props.candidates.forEach((e, i) => {
       rows.push(
@@ -44,20 +72,14 @@ class ActiveElectionDetails extends Component {
           <ElectionHeader
             title={this.props.title}
             time={this.props.time} 
+            onClick={() => this.onCollapseToggle()}
           />
         </thead>
         <tbody>
           {this.getRows()}
         </tbody>
         <tfoot>
-          <tr>
-            <td>
-              <Button 
-                label="Vote"
-                onClick={() => this.onVote()}
-              />
-            </td>
-          </tr>
+          {this.getFooter()}
         </tfoot>
       </table>
     );
