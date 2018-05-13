@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ActiveElectionDetails from './VoteView/ActiveElectionDetails'
+import FutureElectionDetails from './VoteView/FutureElectionDetails'
 
 const mockData = [
   { 
@@ -80,19 +81,35 @@ const mockData = [
 ]
 
 class VoteView extends Component {
+  getFutureElectionDetais(e) {
+    return (
+      <FutureElectionDetails
+        key={e.id}
+        title={e.title}
+        time={e.startTime}
+      />
+    );
+  }
+
+  getActiveElectionDetais(e) {
+    return (
+      <ActiveElectionDetails
+        key={e.id}
+        title={e.title}
+        time={e.startTime}
+        candidates={e.candidates} 
+      />
+    );
+  }
+
   getElectionDetails() {
     let details = [];
     mockData.forEach(e => {
       if (e.state === 'active') {
-        details.push(
-          <ActiveElectionDetails
-            key={e.id}
-            title={e.title}
-            time={e.startTime}
-            state={e.state}
-            candidates={e.candidates} 
-          />
-        );
+        details.push(this.getActiveElectionDetais(e));
+      }
+      else if (e.state === 'notStarted') {
+        details.push(this.getFutureElectionDetais(e));
       }
     });
 
