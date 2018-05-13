@@ -13,7 +13,18 @@ class App extends Component {
     this.model = new ElectionModel();
   }
 
+  convertToEpoch(date) {
+    let parsedDate = date.split('/');
+    let dateTime = new Date(parsedDate[2], parsedDate[1], parsedDate[0]);
+
+    return Math.floor(dateTime.getTime() / 1000);
+  }
+
   handleCreateLec(params) {
+    params.startDate = this.convertToEpoch(params.startDate);
+    params.endDate = this.convertToEpoch(params.endDate);
+    params.candidates = params.candidates.split(',');
+    
     this.model.createElection(params);
   }
 

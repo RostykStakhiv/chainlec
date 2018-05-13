@@ -78,15 +78,13 @@ class CreateVoteView extends Component {
   }
 
   validateInput() {
-    let a =this.validateDate(this.state[StartDateKey]);
-    let b = this.validateCandidates(this.state[CandidatesKey]);  
     return this.validateDate(this.state[StartDateKey]) &&
            this.validateDate(this.state[EndDateKey]) &&
            this.validateCandidates(this.state[CandidatesKey]);
   }
 
   validateDate(date) {
-    return date.match(`^\\d{1,2}[\/\\\.]\\d{1,2}[\/\\\.]\\d{2,4}$`);
+    return date.match(`^\\d{1,2}\/\\d{1,2}\/\\d{2,4}$`);
   }
 
   validateCandidates(date) {
