@@ -1,0 +1,6 @@
+query getPollByID {
+  description: "Get poll with the id, provided in argument"
+  statement:
+      SELECT org.acme.empty.Poll
+          WHERE (pollName == _$pollID)
+}
