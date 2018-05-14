@@ -48,7 +48,7 @@ class ActiveElectionDetails extends Component {
 
     return (
       <tr>
-        <td>
+        <td align={"center"} colSpan={"3"}>
           <Button 
             label="Vote"
             onClick={() => this.onVote()}
@@ -79,7 +79,7 @@ class ActiveElectionDetails extends Component {
 
   render() {
     return (
-      <table className="ElectionDetails">
+      <table className="ElectionDetails" align="center">
         <thead>
           <ElectionHeader
             title={this.props.title}

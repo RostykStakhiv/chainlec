@@ -25,7 +25,7 @@ class FutureElectionDetails extends Component {
 
     return (
       <tr>
-        <td>
+        <td colSpan={"2"}>
           {ElectionsHasntStartedMsg}
         </td>
         <td/>
