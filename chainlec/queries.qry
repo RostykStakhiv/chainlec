@@ -4,3 +4,10 @@ query getPollByID {
       SELECT org.acme.empty.Poll
           WHERE (pollName == _$pollID)
 }
+
+query getVotesForPollByID {
+  description: "Get all votes for poll with specified pollID"
+  statement:
+      SELECT org.acme.empty.ElectionVote
+          WHERE (poll.pollName == _$pollID)
+}

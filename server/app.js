@@ -5,6 +5,13 @@ var cors = require('cors');
 
 app.use(cors());
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
+
+var Client = require('node-rest-client').Client;
+var client = new Client()
+
 const mockData = [
     { 
       id : "ID_Election_1",
@@ -83,11 +90,33 @@ const mockData = [
     }
   ];
 
-
+/*
+  List all polls
+*/
 app.get('/chainlec/v1/elections', (req, res, next) => {
   console.log("GET elections");
   res.status(200);
   res.send(mockData);
+});
+
+/*
+  Register new voter
+*/
+app.post('/register/voter', function(req, res) {
+  var args = {
+    data: {
+      "$class": "org.acme.empty.RegisterVoter",
+      "passportID": req.body.passportID,
+      "password": req.body.password,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "Accept":"application/json"
+    }
+  };
+  client.post("http://localhost:3000/api/RegisterVoter", args, function(data, response) {
+    res.json(data);
+  });
 });
 
 app.listen(3003, () => console.log('Example app listening on port 3003!'));

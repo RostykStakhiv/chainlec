@@ -23,21 +23,20 @@ participant HeadOfElection extends Voter {
 }
 
 participant Candidate extends Voter {
-  --> ElectionVote[] votes
 }
   
 asset Poll identified by pollName {
   o String pollName
   o Integer creationDate
-  o DateTime startDate
-  o DateTime finishDate
+  o Integer startDate
+  o Integer finishDate
   --> Candidate[] candidates
   --> Voter[] voters
 }
   
 asset ElectionVote identified by voteID {
   o String voteID
-  o DateTime creationDate
+  o Integer creationDate
   --> Poll poll
   --> Candidate candidate
   --> Voter voter
@@ -48,14 +47,21 @@ transaction RegisterVoter {
   o String password
 }
 
+transaction RegisterCandidate {
+  o String passportID
+  o String password
+}
+
 transaction CreatePoll {
   o Integer creationDate
   o String pollName
-  o DateTime startDate
-  o DateTime finishDate
+  o Integer startDate
+  o Integer finishDate
   --> Candidate[] candidates
 }
 
 transaction Vote {
-  --> ElectionVote electionVote
+  --> Poll poll
+  --> Candidate candidate
+  --> Voter voter
 }
