@@ -3,6 +3,10 @@ import ActiveElectionDetails from './VoteView/ActiveElectionDetails'
 import FutureElectionDetails from './VoteView/FutureElectionDetails'
 import CompletedElectionDetails from './VoteView/CompletedElectionDetails'
 
+const STYLES = {
+    display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"
+}
+
 class VoteView extends Component {
   parseDate(epochTime) {
     let date = new Date(epochTime * 1000);
@@ -71,10 +75,12 @@ class VoteView extends Component {
 
   render() {
     return (
-      <div className="VoteView">
-        <p>Election List</p>
-        {this.getElectionDetails()}
-      </div>
+        <div style={STYLES}>
+            <div style={{width: "33%", backgroundColor: "#f0f8ff", ...STYLES}}>
+                <h1>Election List</h1>
+                {this.getElectionDetails()}
+            </div>
+        </div>
   );
 }
 }
