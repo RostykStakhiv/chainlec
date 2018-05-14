@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 var Client = require('node-rest-client').Client;
 var client = new Client();
 
+let baseURL = 'http://localhost:3003/';
+let baseComposerAPIURL = 'http://localhost:3000/api/';
+let apiVersion = 'v1/';
+
 const mockData = [
     { 
       id : "ID_Election_1",
@@ -93,7 +97,7 @@ const mockData = [
 /*
   List all polls
 */
-app.get('/chainlec/v1/elections', (req, res, next) => {
+app.get('/chainlec/' + apiVersion + 'elections', (req, res, next) => {
   console.log("GET elections");
   client.get('http://0.0.0.0:3000/api/org.acme.empty.Poll', function(data, response) {
     res.json(data);
@@ -117,12 +121,12 @@ app.post('/register/voter', function(req, res) {
       "Accept":"application/json"
     }
   };
-  client.post("http://localhost:3000/api/RegisterVoter", args, function(data, response) {
+  client.post(baseComposerAPIURL + "org.acme.empty.RegisterVoter", args, function(data, response) {
     res.json(data);
   });
 });
 
-app.post('/chainlec/v1/elections', (req, res, next) => {
+app.post('/chainlec/' + apiVersion + 'elections', (req, res, next) => {
   console.log(`POST elections. Body = ${JSON.stringify(req.body)}`);
   res.status(200);
 });
