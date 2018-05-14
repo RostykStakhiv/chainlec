@@ -1,16 +1,22 @@
 `use strict`;
 const express = require('express');
 const app = express();
-var cors = require('cors');
 
+let cors = require('cors');
 app.use(cors());
 
+<<<<<<< HEAD
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 
 var Client = require('node-rest-client').Client;
 var client = new Client()
+=======
+let bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+>>>>>>> origin/master
 
 const mockData = [
     { 
@@ -40,7 +46,7 @@ const mockData = [
       candidates: [
         {
             id: "ID_Poroh",
-            name: "Dido",
+            name: "Poroh",
         },
         {
           id: "ID_Oleh_Valeriiovych",
@@ -120,6 +126,16 @@ app.post('/register/voter', function(req, res) {
   client.post("http://localhost:3000/api/RegisterVoter", args, function(data, response) {
     res.json(data);
   });
+});
+
+app.post('/chainlec/v1/elections', (req, res, next) => {
+  console.log(`POST elections. Body = ${JSON.stringify(req.body)}`);
+  res.status(200);
+});
+
+app.post('/chainlec/v1/votes', (req, res, next) => {
+  console.log(`POST votes. Body =  ${JSON.stringify(req.body)}`);
+  res.status(200);
 });
 
 app.listen(3003, () => console.log('Example app listening on port 3003!'));
