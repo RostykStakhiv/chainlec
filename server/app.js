@@ -1,4 +1,4 @@
-`use strict`;
+const _ = require("underscore");
 const express = require('express');
 const app = express();
 
@@ -10,7 +10,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 
 var Client = require('node-rest-client').Client;
-var client = new Client()
+var client = new Client();
 
 const mockData = [
     { 
