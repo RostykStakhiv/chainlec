@@ -119,11 +119,11 @@ class CreateVoteView extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <fieldset>
-          <legend>Create Election:</legend>
+      <form onSubmit={this.handleSubmit} style={{paddingTop: "1rem", display: "flex", justifyContent: "center"}}>
+        <fieldset style={{width: "31%", backgroundColor: "#f0f8ff"}}>
+          <legend style={{fontSize: "24px"}}>Create Election:</legend>
           {this.getRows()}
-          <input type="submit" value="Submit" />
+          <button type="submit" value="Submit" style={{fontSize: "16px"}} children={"Submit"} />
         </fieldset>
       </form>
     );
