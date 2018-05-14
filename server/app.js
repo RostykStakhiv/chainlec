@@ -95,8 +95,11 @@ const mockData = [
 */
 app.get('/chainlec/v1/elections', (req, res, next) => {
   console.log("GET elections");
-  res.status(200);
-  res.send(mockData);
+  client.get('http://0.0.0.0:3000/api/org.acme.empty.Poll', function(data, response) {
+    res.json(data);
+  });
+  // res.status(200);
+  // res.send(mockData);
 });
 
 /*
