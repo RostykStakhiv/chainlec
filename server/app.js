@@ -5,18 +5,12 @@ const app = express();
 let cors = require('cors');
 app.use(cors());
 
-<<<<<<< HEAD
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 
 var Client = require('node-rest-client').Client;
 var client = new Client()
-=======
-let bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
->>>>>>> origin/master
 
 const mockData = [
     { 
