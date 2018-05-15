@@ -154,10 +154,18 @@ app.get('/chainlec/' + apiVersion + 'elections', (req, res, next) => {
         });
 
         pollResponseDict["candidates"] = pollCandidates;
+        //pollResponseDict["results"] = [];
+
         responseData.push(pollResponseDict);
       })
 
       client.get(baseComposerAPIURL + 'org.acme.empty.ElectionVote', function(votesResp, response) {
+        if(votesResp.length == 0) {
+          res.json(responseData);
+          res.status(200);
+          return;
+        }
+
         responseData.forEach(pollDict => {
           let state = pollDict["state"];
           let pollID = pollDict["id"];
