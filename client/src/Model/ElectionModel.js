@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class ElectionModel {
   constructor() {
     this.host = 'localhost';
-    this.port = 3003;
+    this.port = 3140;
   }
 
  getElections(callback) {
